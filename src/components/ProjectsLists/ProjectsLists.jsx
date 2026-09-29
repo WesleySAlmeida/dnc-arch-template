@@ -12,8 +12,6 @@ import Button from '../../components/Button/Button'
 // CONTEXTS
 import { AppContext } from '../../contexts/AppContext'
 
-// SERVICES
-import { getApiData } from '../../services/apiServices'
 
 const ProjectsLists = () => {
     const appContext = useContext(AppContext)
@@ -22,8 +20,17 @@ const ProjectsLists = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const projects = await getApiData("projects")
-                setProject(projects)
+                const projects = [
+                    {
+                        id: 1,
+                        title: "Projeto Exemplo"
+                    },
+                    {
+                        id: 2,
+                        title: "Projeto Teste"
+                    }
+                    ]
+                    setProject(projects)
             } catch (err) {
                 setProject([])
             }

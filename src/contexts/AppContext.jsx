@@ -1,36 +1,24 @@
-import { createContext, useState, useEffect } from "react"
-import { getApiData } from "../services/apiServices"
+import { createContext, useState } from "react"
+import languagesData from "../components/data/language.js"
 
 export const AppContext = createContext()
 
 export const AppProvider = ({ children }) => {
-  const savedLanguage = localStorage.getItem('lang')
-  const [language, setLanguage] = useState(savedLanguage ?? 'br')
-  const [languages, setLanguages] = useState()
-  const [loading, setLoading] = useState(true)
+  const savedLanguage = localStorage.getItem("lang")
 
-  useEffect(() => {
-        const fetchLanguages = async () => {
-            try {
-                const getTexts = await getApiData('webtext')
-                setLanguages(getTexts)
-            } catch (e) {
-                console.error(e)
-            }
-            finally {
-              setLoading(false)
-            }
-        }
-
-        fetchLanguages()
-  }, [])
-
-  useEffect(() => {
-    localStorage.setItem('lang', language)
-  }, [language])
+  const [language, setLanguage] = useState(savedLanguage ?? "br")
+  const [languages] = useState(languagesData)
+  const [loading] = useState(false)
 
   return (
-    <AppContext.Provider value={{ languages, language, setLanguage, loading }}>
+    <AppContext.Provider
+      value={{
+        language,
+        setLanguage,
+        languages,
+        loading,
+      }}
+    >
       {children}
     </AppContext.Provider>
   )
