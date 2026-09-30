@@ -15,7 +15,7 @@ phases:
   post_build:
     commands:
       - echo Build completed. Copuing files to S3...
-      - aws cp dist s3://frontend-ws-teste/--recursive
+      - aws s3 cp dist s3://frontend-ws-teste/--recursive
 artifacts:
   files:
     - '**/*'
